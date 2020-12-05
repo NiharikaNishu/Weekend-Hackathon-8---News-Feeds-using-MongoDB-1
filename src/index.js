@@ -9,10 +9,10 @@ const onePageArticleCount = 10;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get('/newFeeds/:offset?/:limit?', (req, res) => {
-    // console.log(req.params.limit + " " + req.params.offset);
-    let docCount = ((req.params.limit === undefined) || isNaN(req.params.limit)) ? onePageArticleCount : parseInt(req.params.limit);
-    let skipCount = ((req.params.offset === undefined) || isNaN(req.params.limit)) ? 0 : parseInt(req.params.offset);
+app.get('/newFeeds/', (req, res) => {
+    // console.log(req.query);
+    let docCount = ((req.query.limit === undefined) || isNaN(req.query.limit)) ? onePageArticleCount : parseInt(req.query.limit);
+    let skipCount = ((req.query.offset === undefined) || isNaN(req.query.limit)) ? 0 : parseInt(req.query.offset);
     newsArticleModel.find().skip(skipCount).limit(docCount).then(dailynews => res.status(200).send(dailynews));
     return;
 });
