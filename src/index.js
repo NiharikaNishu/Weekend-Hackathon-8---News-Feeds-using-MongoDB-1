@@ -10,9 +10,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/newFeeds/', (req, res) => {
-    // console.log(req.query);
-    let docCount = ((req.query.limit === undefined) || isNaN(req.query.limit)) ? onePageArticleCount : parseInt(req.query.limit);
-    let skipCount = ((req.query.offset === undefined) || isNaN(req.query.limit)) ? 0 : parseInt(req.query.offset);
+    let docCount = ((req.query.limit !== undefined) && Number.isInteger(req.query.limit)) ? parseInt(req.query.limit) : onePageArticleCount;
+    let skipCount = ((req.query.offset !== undefined) && Number.isInteger(req.query.limit)) ? parseInt(req.query.offset) : 0;
     newsArticleModel.find().skip(skipCount).limit(docCount).then(dailynews => res.status(200).send(dailynews));
     return;
 });
