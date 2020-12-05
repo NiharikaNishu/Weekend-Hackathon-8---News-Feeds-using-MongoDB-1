@@ -9,7 +9,7 @@ const onePageArticleCount = 10;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get('/newFeeds/:limit?/:offset?', (req, res) => {
+app.get('/newFeeds/:offset?/:limit?', (req, res) => {
     // console.log(req.params.limit + " " + req.params.offset);
     let docCount = ((req.params.limit === undefined) || isNaN(req.params.limit)) ? onePageArticleCount : parseInt(req.params.limit);
     let skipCount = ((req.params.offset === undefined) || isNaN(req.params.limit)) ? 0 : parseInt(req.params.offset);
