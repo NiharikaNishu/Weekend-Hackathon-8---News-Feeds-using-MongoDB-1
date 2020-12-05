@@ -13,7 +13,7 @@ app.get('/newFeeds/:limit?/:offset?', (req, res) => {
     // console.log(req.params.limit + " " + req.params.offset);
     let docCount = ((req.params.limit === undefined) || isNaN(req.params.limit)) ? onePageArticleCount : parseInt(req.params.limit);
     let skipCount = ((req.params.offset === undefined) || isNaN(req.params.limit)) ? 0 : parseInt(req.params.offset);
-    newsArticleModel.find().limit(docCount).skip(skipCount).then(dailynews => res.status(200).send(dailynews));
+    newsArticleModel.find().skip(skipCount).limit(docCount).then(dailynews => res.status(200).send(dailynews));
     return;
 });
 
