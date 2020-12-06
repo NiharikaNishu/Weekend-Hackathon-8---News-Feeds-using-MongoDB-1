@@ -10,10 +10,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/newFeeds/', (req, res) => {
-    let limit = (!req.query.limit || isNaN(req.query.limit)) ? 10 : parseInt(req.query.limit);
-    let offset = (!req.query.offset || isNaN(req.query.limit)) ? 0 : parseInt(req.query.offset);
-    newsArticleModel.find().limit(limit).skip(offset).then(dailynews => res.status(200).send(dailynews));
-    return;
+    let limit=isNaN(req.query.limit) || !req.query.limit ?10:parseInt(req.query.limit);
+    let offset=isNaN(req.query.offset) || !req.query.offset ?0:parseInt(req.query.offset);
+
+    newsArticleModel.find().limit(limit).skip(offset).then((dailyNews)=>{
+        res.send(dailyNews);
+    });
 });
 
 
